@@ -16,7 +16,7 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     IServiceTransaction TransactionBDX;
-
+    //Este es el index
     @GetMapping("/")
     public String getIndex(){
         return "index";
