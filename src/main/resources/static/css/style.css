@@ -1,0 +1,35 @@
+/* Esta es una manera de hacerlo */
+.container {
+  display: grid;
+  grid-template-columns: 0.20fr 0.80fr;
+  height: 100vh;
+  
+  /* Puedes limitar la anchura */
+  max-width: 100%;
+}
+
+.container__item--sidebar {
+  background-color: #46769E;
+  
+}
+.container__item--content {
+
+  background-color: white;
+}
+.container__item--sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ 
+
+.container__item--content {
+
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
+ }
+ 
+.profile{
+	text-align: center;
+}

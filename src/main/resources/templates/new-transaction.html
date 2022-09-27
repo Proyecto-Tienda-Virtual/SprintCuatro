@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VIRTUAL STORE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/style.css" >
+</head>
+<body>
+<main class="container">
+  <aside class="container__item--sidebar">
+    <div class="profile">
+      <img src="https://cdn-icons-png.flaticon.com/512/2694/2694997.png" width="90px" height="90px">
+      <h3 style="color: white;padding-top: 10px; font-weight: bold;">VIRTUAL STORE</h3>
+      <div class="d-grid gap-4 col-12 mx-auto" style="padding-top: 40px">
+        <a href="/movements" class="btn btn-light" type="button"
+           style="padding: 10px; font-weight: bold; color: #46769E">Ingresos y egresos</a>
+        <a href="/employees" class="btn btn-light" type="button"
+           style="padding: 10px; font-weight: bold; color: #46769E">Usuarios</a>
+        <a href="/enterprises" button class="btn btn-light" type="button"
+           style="padding: 10px; font-weight: bold; color: #46769E">Empresas</button></a>
+      </div>
+    </div>
+  </aside>
+  <div class="container__item--content">
+    <h2 style="color:#46769E; text-align:center; padding-bottom: 50px; font-weight: bold;">SISTEMA DE GESTIÓN DE MOVIMIENTOS</h2>
+    <h4 style="color: grey; padding-bottom: 50px;">Movimientos</h4>
+    <br>
+    <h3 style="color:black" class="text-center">NUEVO MOVIMIENTO</h3>
+
+
+    <form th:action="@{/movements}" method="post">
+      <div class="mb-3">
+        <label for="id" class="form-label">Id</label>
+        <input type="text" class="form-control" id="id" th:field="${transaction.id}">
+      </div>
+      <div class="mb-3">
+        <label for="concept" class="form-label">Concepto</label>
+        <input type="text" class="form-control" id="concept" th:field="${transaction.concept}">
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">Monto</label>
+        <input type="text" class="form-control" id="amount" th:field="${transaction.amount}">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar</button>
+
+    </form>
+  </div>
+</main>
+</body>
+
+</html>
