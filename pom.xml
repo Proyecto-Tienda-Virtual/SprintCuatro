@@ -60,10 +60,11 @@
 								<encoding.source>${project.build.sourceEncoding}</encoding.source>
 								<encoding.source>${project.reporting.outputEncoding}</encoding.source>
 								<java.source>${maven.compiler.source}</java.source>
-								<java.source>${maven.compiler.target}</java.source>
+								<java.tarjet>${maven.compiler.target}</java.tarjet>
 							</additionalProperties>
 						</configuration>
 					</execution>
+
 				</executions>
 			</plugin>
 		</plugins>
