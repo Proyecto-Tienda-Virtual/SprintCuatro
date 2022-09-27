@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Profile {
 
-    //Atributos
+    //Atributos para el perfil 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
