@@ -26,17 +26,14 @@ public class ImpleServiceEmployee  implements IServiceEmployee {
 
     //Para crear un usuario
     @Override
-    public Employee Create(Employee employee) {
-
-        return iRespositoryEmployee.save(employee);
+    public void save(Employee employee) {
+        iRespositoryEmployee.save(employee);
     }
 
     //Para consultar un solo usuario
     @Override
-    public Employee getbyId(Long id) {
-
-        Employee employee = iRespositoryEmployee.findById(id).orElse(null);
-        return employee;
+    public Employee get(Long id) {
+        return iRespositoryEmployee.findById(id).get();
     }
 
 

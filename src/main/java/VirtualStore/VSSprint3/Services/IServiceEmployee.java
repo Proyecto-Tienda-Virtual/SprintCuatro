@@ -10,10 +10,10 @@ public interface IServiceEmployee {
     public List<Employee> getAll();
 
     //Crear un usuario
-    public Employee Create(Employee employee);
+    public void save(Employee employee);
 
     //Consultar un usuario por el id
-    public Employee getbyId(Long id);
+    public Employee get(Long id);
 
     //Eliminar un usuario por el id
     public void delete(Long id);

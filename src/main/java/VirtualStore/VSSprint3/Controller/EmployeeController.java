@@ -3,58 +3,59 @@ package VirtualStore.VSSprint3.Controller;
 import VirtualStore.VSSprint3.Model.Employee;
 import VirtualStore.VSSprint3.Services.IServiceEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Objects;
 
-@RestController
+@Controller
 @RequestMapping
 public class EmployeeController {
 
     @Autowired
     IServiceEmployee iServiceEmployee;
 
-    //GET
-    @GetMapping("/users")
-    public List<Employee> getAll(){
-        return iServiceEmployee.getAll();
-
+    //Listar todos los usuarios
+    @GetMapping("/employees")
+    public String getAll(Model model){
+        model.addAttribute("Employees", iServiceEmployee.getAll());
+        return "Employee";
     }
 
-    //POST
-    @PostMapping("/users")
-    public Employee Create(@RequestBody Employee employee){
-        return iServiceEmployee.Create(employee);
-
+    //Formulario de creacion de usuario
+    @GetMapping("/newEmployee")
+    private String FormEmployee(Employee employee){
+        return "newEmployee";
     }
 
-    //GET
-    @GetMapping("/user/{id}")
-    public Employee getbyId(@PathVariable("id") Long id){
-        return iServiceEmployee.getbyId(id);
+    //Metodo para guardar el usuario
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+        iServiceEmployee.save(employee);
+        return "redirect:/employees";
     }
 
-    //DELETE
-    @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable ("id") Long id){
+    //Eliminar Usuario
+    @RequestMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable(name = "id") Long id){
         iServiceEmployee.delete(id);
-
+        return "redirect:/employees";
     }
 
-    //PATCH
-    @PatchMapping("/user/{id}")
-    public Employee updateEmployee (@PathVariable Long id, @RequestBody Employee employee){
-        Employee employee1 = iServiceEmployee.getbyId(id);
+    //Editar usuario
+    @RequestMapping("/edit/{id}")
+    public ModelAndView FormEditEmployee(@PathVariable(name = "id") Long id){
+        ModelAndView model = new ModelAndView("editEmployee");
 
-        employee1.setEmail(employee.getEmail());
-        employee1.setRole(employee.getRole());
-        employee1.setEnterprise(employee.getEnterprise());
-        employee1.setCreatedAt(employee.getCreatedAt());
-        employee1.setUpdateAt(employee.getUpdateAt());
-
-        iServiceEmployee.updateEmployee(employee1);
-
-        return employee1;
+        Employee employee = iServiceEmployee.get(id);
+        model.addObject("employee", employee);
+        return model;
     }
+
+
+
+
 }
