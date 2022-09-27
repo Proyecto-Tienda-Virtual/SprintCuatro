@@ -3,58 +3,61 @@ package VirtualStore.VSSprint3.Controller;
 
 import VirtualStore.VSSprint3.Model.Enterprise;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Objects;
-@RestController
+
+@Controller
 @RequestMapping
 public class EnterpriseController {
 
     @Autowired
     VirtualStore.VSSprint3.Services.IServiceEnterprise IServiceEnterprise;
 
-    //GET
+    //Trae la lista de las empresas del supabase
     @GetMapping("/enterprises")
-    public List<Enterprise> getAll(){
-        return IServiceEnterprise.getAll();
-
+    public String getAll(Model model){     //Llama un String y creamos la clase Model y el objeto model
+       model.addAttribute("Enterprises",IServiceEnterprise.getAll()); //Enterprises guarda la lista de empresas
+       return "Enterprise";  //retorna el archivo HTML
     }
 
-    //POST
+    //Crea un nuevo registro en el formulario
+    @GetMapping("/newEnterprise")
+    private String FormEnterprise(Enterprise enterprise){
+        return "newEnterprise";
+    }
+
+    //Crea la empresa realizando un POST
     @PostMapping("/enterprises")
-    public Enterprise Create(@RequestBody Enterprise enterprise){
-        return IServiceEnterprise.Create(enterprise);
-
+    public String Create(Enterprise enterprise){
+        IServiceEnterprise.Create(enterprise);
+        return "redirect:/enterprises";
     }
 
-    //GET
-    @GetMapping("/enterprise/{id}")
-    public Enterprise getbyId(@PathVariable("id") Long id){
-        return IServiceEnterprise.getbyId(id);
+    //Para editar el registro
+    @GetMapping("/enterprise/edit/{id}")
+    public String getbyId(@PathVariable("id") Long id, Model model){
+        Enterprise enterprise = IServiceEnterprise.getbyId(id);
+        model.addAttribute("enterprise", enterprise);
+        return "updateEnterprise";
     }
 
-    //DELETE
-    @DeleteMapping("/enterprise/{id}")
-    public void delete(@PathVariable ("id") Long id){
+    //Para actualizar un registro en el formulario
+    @PostMapping("/enterprise/updateEnterprise/{id}")
+    public String updateEnterprise (@PathVariable("id") Long id,Enterprise enterprise){
+        IServiceEnterprise.updateEnterprise(enterprise);
+        return "redirect:/enterprises";
+    }
+
+   //Borrar un registro por ID
+    @GetMapping("/enterprise/delete/{id}")
+    public String delete(@PathVariable ("id") Long id){
         IServiceEnterprise.delete(id);
+        return  "redirect:/enterprises";
 
     }
 
-    //PATCH
-    @PatchMapping("/enterprise/{id}")
-    public Enterprise updateEnterprise (@PathVariable Long id, @RequestBody Enterprise enterprise){
-        Enterprise enterprise1 = IServiceEnterprise.getbyId(id);
-
-        enterprise1.setName(enterprise.getName());
-        enterprise1.setDocument(enterprise.getDocument());
-        enterprise1.setPhone(enterprise.getPhone());
-        enterprise1.setAddress(enterprise.getAddress());
-        enterprise1.setCreatedAt(enterprise.getCreatedAt());
-        enterprise1.setUpdateAt(enterprise.getUpdateAt());
-
-        IServiceEnterprise.updateEnterprise(enterprise1);
-
-        return enterprise1;
-    }
 }

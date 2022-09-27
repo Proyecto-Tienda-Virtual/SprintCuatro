@@ -55,9 +55,9 @@
                 <td th:text="${employee.createdAt}"></td>
                 <td th:text="${employee.updateAt}"></td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{'/edit/' + ${employee.id}}">Edit</a>
+                    <a class="btn btn-primary" th:href="@{'/edit/' + ${employee.id}}">Editar</a>
                     &nbsp;
-                    <a class="btn btn-danger" button onclick="return confirm('¿Está seguro que desea eliminar el registro?')" th:href="@{'/delete/' + ${employee.id}} ">Delete</a>
+                    <a class="btn btn-danger" button onclick="return confirm('¿Está seguro que desea eliminar el registro?')" th:href="@{'/delete/' + ${employee.id}} ">Eliminar</a>
                 </td>
             </tr>
         </table>

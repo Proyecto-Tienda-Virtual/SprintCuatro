@@ -17,10 +17,6 @@ public class TransactionController {
     @Autowired
     IServiceTransaction TransactionBDX;
 
-    @GetMapping("/")
-    public String getIndex(){
-        return "index";
-    }
 
     @GetMapping("/movements")
     public String getAll(Model model){

@@ -1,5 +1,9 @@
 package VirtualStore.VSSprint3.Model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +34,14 @@ public class Enterprise {
 
     @OneToMany(mappedBy = "enterprise", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
-    @Column
-    private Date createdAt;
 
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @UpdateTimestamp
+    private Date createdAt;
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @UpdateTimestamp
     private Date updateAt;
 
     public Enterprise() {
